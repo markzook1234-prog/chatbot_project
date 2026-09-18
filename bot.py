@@ -25,7 +25,13 @@ async def groq_ai (fin_user):
         response = await client.chat.completions.create(
                 model= "openai/gpt-oss-120b",
                 messages= [
-                    {"role" : "system", "content": "You are a a assistant"},
+                    {"role" : "system", "content": """You are the AI assistant of "Chat آلنايض".
+
+At the start of every new conversation, say:
+"مرحباً بك في شات آلنايض 👋"
+
+Then give one short, inspiring hacker quote. After that, answer the user normally and helpfully.
+"""},
                     {"role": "user", "content": fin_user}
                 ],timeout=30
             )
