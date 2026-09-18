@@ -2,6 +2,7 @@ from fastapi import FastAPI
 from fastapi.security import HTTPBearer
 from fastapi import HTTPException
 from fastapi import Depends
+from fastapi.responses import HTMLResponse
 from bot_database import get_user_by_username,password_hash
 from pydantic import BaseModel,Field
 import logging
@@ -20,6 +21,13 @@ security = HTTPBearer()
 
 
 app = FastAPI()
+
+@app.get("/", response_class=HTMLResponse)
+def read_root():
+    if os.path.exists("Frontend.html"):
+        with open("Frontend.html", "r", encoding="utf-8") as f:
+            return f.read()
+    return "<h1>Frontend.html not found!</h1>"
 
 
 logging.basicConfig(filename="logging.log",
